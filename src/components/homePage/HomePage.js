@@ -11,15 +11,22 @@ import _ from "lodash";
 import { Map, Popup, TileLayer, Marker } from "react-leaflet";
 import "./HomePage.css";
 import L from "leaflet";
+import CaseForm from "../caseForm/CaseForm"
 
 function HomePage(props) {
   const brigadistas = useSelector(state => state.brigada); // Para acceder a estado global de Redux
   const dispatch = useDispatch();
-
+  const [windowWidth, setWindowWidth] = useState(null)
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
+    console.log(windowWidth)
   }, [brigadistas.brigadeListOnline]); // Por ahora solo depende de la lista de brigada Online
-
+  useEffect(()=>{
+      window.addEventListener('resize', () =>{
+        setWindowWidth(document.body.clientWidth)
+       
+      })
+  },[])
   app.auth().onAuthStateChanged(user => {
     // Para llevarlo a login window si no está conectado
     if (!user) {
@@ -55,7 +62,8 @@ function HomePage(props) {
   let fetch = require("node-fetch"); // Para hacer el http request
 
   return (
-    <div>
+    <body className="bodyTotal">
+    
       <Navigation />
       <Map className="map" center={[11.0192471, -74.8505]} zoom={18}>
         <TileLayer
@@ -64,11 +72,13 @@ function HomePage(props) {
         />
         {Markers}
       </Map>
+      <CaseForm/>
 
       <button className="but" onClick={sendCase}>
         Send case
       </button>
-    </div>
+    
+    </body>
   );
 
 
