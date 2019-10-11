@@ -1,12 +1,19 @@
+  
 .map {
     position: relative;
-    height: 83vh;
-    width: 75vw;
-    margin-left: 25vw;
-    top: -2.2vh;
     display: flex;
     flex-direction: column;
+    height: 87vh;
+    width: 75vw;
+    margin-left: 0vw;
+    bottom: 87vh;
+    margin-top:87vh;
+  
     
+}
+
+.dive{
+    display:flex; flex-direction:row;
 }
 .bodyTotal{
     position:relative;

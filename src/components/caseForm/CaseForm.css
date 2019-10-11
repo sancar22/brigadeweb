@@ -7,11 +7,14 @@
 .bod{
     position: relative;
     background: white;
-    height:83vh;
-    width: 25vw;
-    bottom: 85.2vh;
-    left: 0vw;
-      display: flex;
+    display: flex;
     flex-direction: column;
+    right: 0vw;
+    margin-top:87vh;
+    height:87vh;
+    width: 30vw;
+    bottom: 87vh;
     
+    
+   
 }

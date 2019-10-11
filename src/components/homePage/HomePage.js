@@ -67,6 +67,8 @@ function HomePage(props) {
     <body className="bodyTotal" style={{width:windowWidth, height:windowHeight}}>
     
       <Navigation />
+      <div className="dive" >
+      <CaseForm/>
       <Map className="map" center={[11.0192471, -74.8505]} zoom={18}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -74,7 +76,10 @@ function HomePage(props) {
         />
         {Markers}
       </Map>
-      <CaseForm/>
+      
+      </div>
+      
+
     
     </body>
   );

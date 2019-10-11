@@ -1,7 +1,10 @@
-body{
+.bodyy{
     margin:0;
     padding: 0;
     font-family: sans-serif;
+    display: flex;
+    flex-direction: row;
+    height: 13vh;
     
 }
 
@@ -57,8 +60,11 @@ ul li a:hover{
 .logout{
     height: 7vh;
     width: 3.5vw;
-    margin-top: 3.2vh;
-    margin-left: 60vw;
+    
+    padding: 3vh 0vw;
+    margin-left: 90vw;
+    display:block;
+    flex-direction: row;
     -webkit-transition:all 0.5s ease-out;
     -moz-transition:all 0.5s ease-out;
     -ms-transition:all 0.5s ease-out;
