@@ -1,27 +1,30 @@
 .map {
     position: relative;
-    height: 540px;
+    height: 83vh;
+    width: 75vw;
     margin-left: 25vw;
+    top: -2.2vh;
+    display: flex;
+    flex-direction: column;
     
 }
 .bodyTotal{
+    position:relative;
     height:100vh;
-    width: 100vw;
-    bottom: -100px;
     overflow: hidden;
     
 }
 
 .but{
     position:relative;
-    height:30px;
+    height:4vh;
     font-family: 'Courier New', Courier, monospace;
     background-color: white;
-    margin-top: 0px;
-    margin-left: 350px;
+    margin-top: 0vh;
+    margin-left: 25.8vw;
     border-radius: 10px;
     transition: 1s;
-    top: -538px;
+    bottom: 83vh;
 }
 
 .but:hover{

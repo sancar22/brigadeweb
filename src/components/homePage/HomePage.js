@@ -17,6 +17,7 @@ function HomePage(props) {
   const brigadistas = useSelector(state => state.brigada); // Para acceder a estado global de Redux
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(null)
+  const [windowHeight, setWindowHeight] = useState(null)
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
     console.log(windowWidth)
@@ -24,6 +25,7 @@ function HomePage(props) {
   useEffect(()=>{
       window.addEventListener('resize', () =>{
         setWindowWidth(document.body.clientWidth)
+        setWindowHeight(document.body.clientHeight)
        
       })
   },[])
@@ -62,7 +64,7 @@ function HomePage(props) {
   let fetch = require("node-fetch"); // Para hacer el http request
 
   return (
-    <body className="bodyTotal">
+    <body className="bodyTotal" style={{width:windowWidth, height:windowHeight}}>
     
       <Navigation />
       <Map className="map" center={[11.0192471, -74.8505]} zoom={18}>
@@ -73,10 +75,6 @@ function HomePage(props) {
         {Markers}
       </Map>
       <CaseForm/>
-
-      <button className="but" onClick={sendCase}>
-        Send case
-      </button>
     
     </body>
   );
