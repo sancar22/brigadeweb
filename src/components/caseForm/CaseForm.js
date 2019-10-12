@@ -27,11 +27,11 @@ function CaseForm() {
 
   const filterOptions1 = createFilterOptions({options});
 
-  const [valuePlace, setValuePlace] = useState({});
+  const [valuePlace, setValuePlace] = useState(null);
   const [valueDescription, setValueDescription] = useState("");
-  const [valueCod, setValueCod] = useState({});
-  const [valueCategory, setValueCategory] = useState({});
-
+  const [valueCod, setValueCod] = useState(null);
+  const [valueCategory, setValueCategory] = useState(null);
+console.log(valuePlace)
   return (
     <div className="bod">
       <br />

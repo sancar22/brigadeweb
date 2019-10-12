@@ -24,7 +24,9 @@ function HomePage(props) {
   useEffect(() => {
     window.addEventListener("resize", () => {
       setWindowWidth(document.body.clientWidth);
-      setWindowHeight(document.body.clientHeight);
+    });
+    window.addEventListener("resize", () => {
+      setWindowHeight(window.innerHeight);
     });
   }, []);
   app.auth().onAuthStateChanged(user => {
@@ -33,7 +35,7 @@ function HomePage(props) {
       props.history.push("/");
     }
   });
-
+ console.log(windowWidth, windowHeight)
   function onMarkerClickHandler(brigadista) {
     app
       .database()
