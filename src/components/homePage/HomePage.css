@@ -1,4 +1,4 @@
-  
+
 .map {
     position: relative;
     display: flex;
@@ -8,8 +8,7 @@
     margin-left: 0vw;
     bottom: 87vh;
     margin-top:87vh;
-  
-    
+       
 }
 
 .dive{
@@ -20,20 +19,6 @@
     height:100vh;
     overflow: hidden;
     
+    
 }
 
-.but{
-    position:relative;
-    height:4vh;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: white;
-    margin-top: 0vh;
-    margin-left: 25.8vw;
-    border-radius: 10px;
-    transition: 1s;
-    bottom: 83vh;
-}
-
-.but:hover{
-    background-color: firebrick;
-}

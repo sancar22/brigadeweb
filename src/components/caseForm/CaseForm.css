@@ -1,20 +1,56 @@
 .list{
+    bottom: -5vh;
     display: flex;
     flex-direction: column;
-    right: 3.5vw;
+    left: -1.8vw;
+    text-align:center;
+    background: #ECECEC;
+    border: 0px solid;
+    height: 13vh;
+    border-radius: 7px 0px 0px 7px;
+    overflow:hidden;
+    overflow-y:scroll;
+ 
+ 
+}
+.listele{
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    border-color: #b8b8b8;
+    background: rgb(216, 216, 221)
+    
 }
 
 .bod{
     position: relative;
-    background: white;
+    background-color: rgb(255, 255, 255);
+    box-shadow: -10px 15px 30px black;
     display: flex;
     flex-direction: column;
     right: 0vw;
     margin-top:87vh;
     height:87vh;
     width: 30vw;
-    bottom: 87vh;
-    
+    bottom: 87vh; 
     
    
+}
+
+
+.but{
+    position:relative;
+    height:5vh;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    background-color: rgb(184, 184, 184);
+    margin-top: 0vh;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    border-radius: 10px;
+    transition: .5s;
+    top: 64vh;
+}
+
+.but:hover{
+    background-color: rgb(89, 206, 89);
 }
