@@ -27,7 +27,7 @@ function CaseForm() {
 
   const filterOptions1 = createFilterOptions({options});
 
-  const [valueDescription, setValueDescription] = useState("");
+  const [valueDescription, setValueDescription] = useState('');
   const [valueCod, setValueCod] = useState(null);
   const [valueCategory, setValueCategory] = useState(null);
   const [selectedButton, setSelectedButton] = useState(null)
@@ -96,7 +96,7 @@ function CaseForm() {
   );
 
   function resetSelected() {
-    // Para al refrescar la página deseleccionar todos los marcadores
+    // Para al enviar el caso deseleccionar a todos
     return app
       .database()
       .ref("/Users")
@@ -113,28 +113,28 @@ function CaseForm() {
       });
   }
  
-
+ 
   function sendCase() {
     //Botón para enviar notificaciones
-        
+  
     
 
-
-     brigadistas.selectedBrigade.map(
-      brigade => app.database().ref("/Users/" + brigade.UID).update({notif:true}))
-     brigadistas.selectedBrigade.map(
-     brigade => app.database().ref("/Casos/" + brigade.UID + brigade.receivedNotif.toString()).update({lugar:fillCase.lugarEmergencia.label, codigo:fillCase.codigo.label, categoria:fillCase.categoria.label, descripcion:fillCase.descAdicional}))
+     console.time('Hello')
+   
+    brigadistas.selectedBrigade.map(
+    brigade => app.database().ref("/Casos/" + brigade.UID + brigade.receivedNotif.toString()).update({lugar:fillCase.lugarEmergencia.label, codigo:fillCase.codigo.label, categoria:fillCase.categoria.label, descripcion:fillCase.descAdicional}))
       dispatch(fillPlace(null))
       dispatch(fillCode(null))
       dispatch(fillCategory(null))
       dispatch(fillDescription(''))
+      console.timeEnd('Hello')
       setTimeout(function(){
       
       brigadistas.selectedBrigade.map(
       brigade => app.database().ref("/Users/" + brigade.UID).update({notif:false}))
        
       brigadistas.selectedBrigade.map( (brigade)=>
-        app.database().ref("/Users/" + brigade.UID).on("value", snapshot =>{
+        app.database().ref("/Users/" + brigade.UID).once("value", snapshot =>{
             let data1 = snapshot.val().receivedNotif
             let data2 = snapshot.val().accepted
             let data3 = snapshot.val().UID
@@ -142,7 +142,7 @@ function CaseForm() {
             app.database().ref("/Users/" + data3).update({rejected:data4})
         })
       )
-      
+       console.log("Executed")
      
        }, 10000);  
 
@@ -152,6 +152,7 @@ function CaseForm() {
       title: "Carlos es un bollito",
       body: "Vale",
       sound: "default",
+      ttl: 5000, //MODIFICAR DESPUÉS
       data: {
         name: "Mañe",
         ape: "Towers"
