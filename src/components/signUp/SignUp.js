@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navigation from "../navigation/Navigation";
 import app from "firebase/app";
 import "firebase/auth";
 import { withRouter } from "react-router-dom";
 import CaseForm from "../caseForm/CaseForm"
+
 
 
 function SignUp(props) {
@@ -14,9 +15,14 @@ function SignUp(props) {
     }
   });
 
+ 
+
+  
+
   return (
     <div>
       <Navigation />
+      
     </div>
   );
 }
