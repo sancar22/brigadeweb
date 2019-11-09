@@ -38,9 +38,9 @@ function CaseForm() {
   return (
     <div className="bod">
       <br />
-      <text className="texto">Brigadistas seleccionados:</text>
+      <div className="texto">Brigadistas seleccionados:</div>
       <ul className="list">{selectedBrigade}</ul>
-      <text className="texto" style={{position:"relative", top:"3vh"}}>Lugar de emergencia:</text>
+      <div className="texto" style={{position:"relative", top:"3vh"}}>Lugar de emergencia:</div>
       <div style={{ width: "26.3vw", marginLeft: "1.8vw", position:"relative", top:"3vh" }}>
         <VirtualizedSelect
           name="lugar"
@@ -53,11 +53,11 @@ function CaseForm() {
 
       <div className="div1" style={{top:"5vh", position:"relative"}} >
         <div className="div2" style={{ width: "30%"}}>
-          <text className="texti" style={{marginLeft:"2vw"}}>Código:</text>
+          <div className="texti" style={{marginLeft:"2vw"}}>Código:</div>
         </div>
 
         <div className="div2" style={{width: "70%"}}>
-             <text className="texti" style={{marginLeft:"3.9vw"}}>Categoría:</text>
+             <div className="texti" style={{marginLeft:"3.9vw"}}>Categoría:</div>
         </div>
       </div>
 
@@ -81,7 +81,7 @@ function CaseForm() {
         </div>
       </div>
       <div style={{top:"9vh", position:"relative"}}>
-      <text className="texti" style={{marginLeft:"2.2vw"}}>Descripción adicional:</text>
+      <div className="texti" style={{marginLeft:"2.2vw"}}>Descripción adicional:</div>
       </div>
       <textarea
         placeholder="Añadir información adicional pertinente..."

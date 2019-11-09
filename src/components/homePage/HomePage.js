@@ -14,15 +14,16 @@ import L from "leaflet";
 import CaseForm from "../caseForm/CaseForm";
 
 function HomePage(props) {
-  const brigadistas = useSelector(state => state.brigada); // Para acceder a estado global de Redux
+  const brigadistas = useSelector(state => state.brigada);
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(null); //responsiveness
   const [windowHeight, setWindowHeight] = useState(null); 
+
   useEffect(() => {
     dispatch(selectMarker(brigadistas.brigadeListOnline));
-    
-  }, [brigadistas.brigadeListOnline]); // Por ahora solo depende de la lista de brigada Online
-  useEffect(() => {
+  }, [brigadistas.brigadeListOnline]); 
+  
+  useEffect(() => { // Responsiveness
     window.addEventListener("resize", () => {
       setWindowWidth(document.body.clientWidth);
     });
@@ -30,13 +31,7 @@ function HomePage(props) {
       setWindowHeight(window.innerHeight);
     });
   }, []);
-  useEffect(()=>{
-    console.log("Mounted")
 
-    return () => {
-      console.log("Unmounted")
-    }
-  },[])
   app.auth().onAuthStateChanged(user => {
     // Para llevarlo a login window si no está conectado
     if (!user) {
@@ -82,7 +77,7 @@ function HomePage(props) {
   ));
 
   return (
-    <body
+    <div
       className="bodyTotal"
       style={{ width: windowWidth, height: windowHeight }}
     >
@@ -97,7 +92,7 @@ function HomePage(props) {
           {Markers}
         </Map>
       </div>
-    </body>
+    </div>
   );
 }
 

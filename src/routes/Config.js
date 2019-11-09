@@ -2,8 +2,6 @@ import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-firestore";
 import "firebase/firebase-database";
-import { getDefaultWatermarks } from "istanbul-lib-report";
-import React from "react";
 import _ from "lodash";
 
 const config = {
