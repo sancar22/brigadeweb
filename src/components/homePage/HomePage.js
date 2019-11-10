@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { selectMarker } from "../../actions/index";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import firebase from "../../routes/Config";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
 import Navigation from "../navigation/Navigation";
-import _ from "lodash";
-import { Map, Popup, TileLayer, Marker } from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import "./HomePage.css";
 import L from "leaflet";
 import CaseForm from "../caseForm/CaseForm";
@@ -30,6 +28,15 @@ function HomePage(props) {
     window.addEventListener("resize", () => {
       setWindowHeight(window.innerHeight);
     });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWindowWidth(document.body.clientWidth);
+      });
+      window.removeEventListener("resize", () => {
+        setWindowHeight(window.innerHeight);
+      });
+    }
   }, []);
 
   app.auth().onAuthStateChanged(user => {

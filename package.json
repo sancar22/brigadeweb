@@ -6,6 +6,8 @@
     "@brainhubeu/react-file-input": "^0.7.4",
     "bootstrap": "^4.3.1",
     "firebase": "^6.6.2",
+    "firebase-admin": "^8.7.0",
+    "http2": "^3.3.7",
     "leaflet": "^1.5.1",
     "lodash": "^4.17.15",
     "mdbreact": "^4.20.0",

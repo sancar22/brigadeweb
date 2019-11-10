@@ -63,7 +63,7 @@ function SignIn(props) {
          /> : 
     <div className="bodyb">
     <div className="loginBox">
-     <img src={require('./logoBrigada.jpg')} className="user"/>
+     <img src={require('./logoBrigada.jpg')} className="user" alt="icon_brigade"/>
      <h2>¡Bienvenido!</h2>
       <form onSubmit={login}>
         <p>Email</p>

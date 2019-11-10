@@ -34,6 +34,7 @@ function Navigation(props) {
               className="logout"
               type="image"
               src="logout1.png"
+              alt ="logout_icon"
               onClick={logout}
             />
           

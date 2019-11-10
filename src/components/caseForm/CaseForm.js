@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import firebase from "../../routes/Config";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
@@ -15,25 +14,19 @@ import {options, optionsPlace, optionsCod, optionsCategory} from './Options'
 import {fillPlace, fillCode, fillCategory, fillDescription} from '../../actions/index'
 
 function CaseForm() {
+  let fetch = require("node-fetch"); // Para hacer el http request
   const brigadistas = useSelector(state => state.brigada);
   const fillCase = useSelector(state => state.fillCase)
   const dispatch = useDispatch();
+  const [dformat, setDFormat] = useState('')
   const selectedBrigade = brigadistas.selectedBrigade.map((brigada, index) => (
     <li key={index} className="listele">
       {brigada.Email}
     </li>
   ));
-  let fetch = require("node-fetch"); // Para hacer el http request
+
 
   const filterOptions1 = createFilterOptions({options});
-
-  const [valueDescription, setValueDescription] = useState('');
-  const [valueCod, setValueCod] = useState(null);
-  const [valueCategory, setValueCategory] = useState(null);
-  const [selectedButton, setSelectedButton] = useState(null)
-
-  
-
 
   return (
     <div className="bod">
@@ -95,81 +88,56 @@ function CaseForm() {
     </div>
   );
 
-  function resetSelected() {
-    // Para al enviar el caso deseleccionar a todos
-    return app
-      .database()
-      .ref("/Users")
-      .once("value", snapshot => {
-        const fireData = _.toArray(snapshot.val());
-        fireData.forEach(child => {
-          app
-            .database()
-            .ref("/Users/" + child.UID)
-            .update({
-              selected: false
-            });
-        });
-      });
-  }
- 
  
     function sendCase() {
     //Botón para enviar notificaciones
+    dateFormat();
+    updateCaseBranch()
+    dispatch(fillPlace(null))
+    dispatch(fillCode(null))
+    dispatch(fillCategory(null))
+    dispatch(fillDescription(''))
+    setTimeout(() => notifExpired(), 10000);  
+    pushNotification()
+    resetSelected();
+  }
+
+  
+  function dateFormat(){
     Number.prototype.padLeft = function(base,chr){
-      var  len = (String(base || 10).length - String(this).length)+1;
+      let  len = (String(base || 10).length - String(this).length)+1;
       return len > 0? new Array(len).join(chr || '0')+this : this;
     }
     let d = new Date,
-    dformat = [(d.getMonth()+1).padLeft(),
+    dform = [(d.getMonth()+1).padLeft(),
                d.getDate().padLeft(),
                d.getFullYear()].join('/') +' ' +
               [d.getHours().padLeft(),
                d.getMinutes().padLeft(),
                d.getSeconds().padLeft()].join(':');
-    
-    console.time('Hello')
-  
-    console.log(Date.now())
-    brigadistas.selectedBrigade.map(
-    brigade => 
-    app
-    .database()
-    .ref("/Casos/" + brigade.UID + brigade.receivedNotif.toString())
-    .update({
-        lugar:fillCase.lugarEmergencia.label, 
-        codigo:fillCase.codigo.label, 
-        categoria:fillCase.categoria.label, 
-        descripcion:fillCase.descAdicional,
-        inicioFecha: dformat,
-        finalFecha: "",
-        tInicial: 0,
-        tFinal: 0,
-        tTranscurrido: 0
-      }))
-      dispatch(fillPlace(null))
-      dispatch(fillCode(null))
-      dispatch(fillCategory(null))
-      dispatch(fillDescription(''))
-      console.timeEnd('Hello')
-      setTimeout(function(){
-      
-      brigadistas.selectedBrigade.map(
-      brigade => app.database().ref("/Users/" + brigade.UID).update({notif:false}))
-       
-      brigadistas.selectedBrigade.map( (brigade)=>
-        app.database().ref("/Users/" + brigade.UID).once("value", snapshot =>{
-            let data1 = snapshot.val().receivedNotif
-            let data2 = snapshot.val().accepted
-            let data3 = snapshot.val().UID
-            let data4 = data1-data2;
-            app.database().ref("/Users/" + data3).update({rejected:data4})
-        })
-      )
-       console.log("Executed")
-     
-       }, 10000);  
+    setDFormat(dform);
+  }
 
+  function updateCaseBranch(){
+    brigadistas.selectedBrigade.map(
+      brigade => 
+      app
+      .database()
+      .ref("/Casos/" + brigade.UID + brigade.receivedNotif.toString())
+      .update({
+          lugar:fillCase.lugarEmergencia.label, 
+          codigo:fillCase.codigo.label, 
+          categoria:fillCase.categoria.label, 
+          descripcion:fillCase.descAdicional,
+          inicioFecha: dformat,
+          finalFecha: "",
+          tInicial: 0,
+          tFinal: 0,
+          tTranscurrido: 0
+        }))
+  }
+
+  function pushNotification(){
     const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
     let data = {
       to: brigadistas.selectedBrigade.map(brigada => brigada.Expotoken),
@@ -192,10 +160,45 @@ function CaseForm() {
       },
       body: JSON.stringify(data)
     }).catch(err =>
-      alert("No ha seleccionado un brigadista o no hay conexión a internet.")
+      alert(err)
     );
-    resetSelected();
   }
+
+  function notifExpired(){
+    console.log("lO HICE")
+    brigadistas.selectedBrigade.map(
+    brigade => app.database().ref("/Users/" + brigade.UID).update({notif:false}))
+    
+    brigadistas.selectedBrigade.map( (brigade)=>
+      app.database().ref("/Users/" + brigade.UID).once("value", snapshot =>{
+          let data1 = snapshot.val().receivedNotif
+          let data2 = snapshot.val().accepted
+          let data3 = snapshot.val().UID
+          let data4 = data1-data2;
+          app.database().ref("/Users/" + data3).update({rejected:data4})
+      })
+    )
+  
+    }
+
+    function resetSelected() {
+      // Para al enviar el caso deseleccionar a todos
+      return app
+        .database()
+        .ref("/Users")
+        .once("value", snapshot => {
+          const fireData = _.toArray(snapshot.val());
+          fireData.forEach(child => {
+            app
+              .database()
+              .ref("/Users/" + child.UID)
+              .update({
+                selected: false
+              });
+          });
+        });
+    }
+ 
 }
 
 export default CaseForm;
