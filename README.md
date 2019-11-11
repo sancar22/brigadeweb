@@ -15,13 +15,13 @@ Replace current radios with a React Native mobile application with the following
 
 - This mobile application will receive notifications from Expo Push Notification service.
 
-- If Brigaders do not attend this notification within 40 seconds, it will be dismissed and this will count as a case rejection which will be registered in Firebase Real-Time Database.
+- If Brigaders do not attend this notification within 40 seconds, it will be dismissed and this will count as a case rejection, which will be registered in Firebase Real-Time Database.
 
-- If the Brigader opens a notification, it will display important information about the case; for instance, the place, the code, the category and an additional discription of the case.
+- If the Brigader opens a notification, it will display important information about the case; for instance, the place, the code, the category and an additional description of the case.
 
 - If the Brigader declines, it will be registered in Firebase and he will be redirected to a Screen where he has to give a reason of rejection, which will also be registered in the DB.
 
-- If the Brigader accepts, it will also be registered and he will be redirected to a Case Screen. In this Screen he will be able to take pictures of the case (not stored in their phones). They will also be able to call the Police, an Ambulance, Firemen and request help from other Brigaders. They are also required to fill a description of what they did to solve the case. On case submission, the data relevant to the case will be store in the DB.
+- If the Brigader accepts, it will also be registered and he will be redirected to a Case Screen. In this Screen he will be able to take pictures of the case (not stored in their phones). They will also be able to call the Police, an Ambulance, Firemen and request help from other Brigaders. They are also required to fill a description of what they did to solve the case. On case submission, the data relevant to the case will be stored in the DB.
 
 - Brigaders will be able to see their stats, in a tab inside the application.
 
