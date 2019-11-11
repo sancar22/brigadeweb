@@ -5,17 +5,14 @@ import "firebase/auth";
 import { withRouter } from "react-router-dom";
 import "./SignUp.css";
 
-
-
 function SignUp(props) {
- 
   const [fileB, setFileB] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [secondLast, setSecondLast] = useState('');
-  const [password, setPassword] = useState('');
-  const [confPass, setConfPass] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [secondLast, setSecondLast] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPass, setConfPass] = useState("");
 
   const [windowWidth, setWindowWidth] = useState(null); //responsiveness
   const [windowHeight, setWindowHeight] = useState(null);
@@ -40,13 +37,13 @@ function SignUp(props) {
       window.removeEventListener("resize", () => {
         setWindowHeight(window.innerHeight);
       });
-    }
+    };
   }, []);
 
   useEffect(() => {
     console.log(fileB);
   }, [fileB]);
-   
+
   // For image processing
   const readFile = event => {
     setFileB(URL.createObjectURL(event.target.files[0]));
@@ -56,25 +53,23 @@ function SignUp(props) {
   };
 
   const upload = useRef();
-//
+  //
 
   const register = evt => {
     evt.preventDefault();
-  
+
     try {
       if (email.length < 6) {
         alert("Please enter at least 6 characters");
         return;
-      }else if (password !== confPass){
-        alert("Passwords don't match")
+      } else if (password !== confPass) {
+        alert("Passwords don't match");
         return;
       }
-     app.auth().createUserWithEmailAndPassword(email.trim(), password); // Register user in firebase
-     
+      app.auth().createUserWithEmailAndPassword(email.trim(), password); // Register user in firebase
     } catch (error) {
       console.log(error.toString());
     }
-  
   };
 
   return (
@@ -82,7 +77,6 @@ function SignUp(props) {
       style={{ width: windowWidth, height: windowHeight, overflow: "hidden" }}
     >
       <Navigation />
-     
 
       <form className="formDiv" onSubmit={register}>
         <div className="divRow">
@@ -181,16 +175,14 @@ function SignUp(props) {
               onChange={evt => setConfPass(evt.target.value)}
             />
           </div>
-          
         </div>
         <input
-        type="submit"
-        name = ""
-        value="Registrarse"
-        className = "buttonSignUp"
+          type="submit"
+          name=""
+          value="Registrarse"
+          className="buttonSignUp"
         />
       </form>
-      
     </div>
   );
 }
