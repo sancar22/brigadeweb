@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import "./SignIn.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
+import FormInput from "../form/Form";
 
 function SignIn(props) {
   const [email, setEmail] = useState("");
@@ -72,20 +73,28 @@ function SignIn(props) {
             <h2>¡Bienvenido!</h2>
             <form onSubmit={login}>
               <p>Email</p>
-              <input
+              <FormInput
+                label="Username"
+                name="username"
                 type="text"
-                placeholder="Enter your email"
                 value={email}
                 onChange={handleUserChange}
+                placeholder="Enter your email"
+                required
               />
+
               <p>Password</p>
-              <input
+              <FormInput
+                label="Password"
+                name="password"
                 type="password"
-                placeholder="*********"
                 value={password}
                 onChange={handleUserPassword}
+                placeholder="**********"
+                required
               />
-              <input type="submit" name="" value="Sign In" />
+
+              <FormInput name="" type="submit" value="Sign In" />
             </form>
           </div>
         </div>
