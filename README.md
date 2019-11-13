@@ -1,5 +1,6 @@
 # Brigade Web Application (TOTAL PROJECT COMPLETION: 65%)
 
+## IF YOU WANT TO GO PAST THE LOGIN SCREEN USE THIS TEMPORARY EMAIL AND PASSWORD: EMAIL: admin@gmail.com PASSWORD: adminadmin
 This application is being developed to register all activities involving the Brigade Unit
 in Universidad del Norte. This is done for the purpose of solving the current problem the Brigade Unit is facing today: Brigaders are not responding their radios when emergencies occur. This is a serious problem since it puts in jeopardy the lives of many people.
 
