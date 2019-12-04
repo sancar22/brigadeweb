@@ -28,7 +28,7 @@ function Stats(props) {
   console.log(orderedArray);
   let displayStats = orderedArray.map((item, index) => {
     return (
-      <tr>
+      <tr key={index}>
         <td>
           <img src={item.imagen} height="50" width="50" />
         </td>

@@ -9,6 +9,7 @@ import * as ROUTES from "../../routes/Routes";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
+import "firebase/messaging";
 import firebase from "../../routes/Config";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
@@ -17,6 +18,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { messaging } from "../../init-fcm";
+import CustomToast from "../custom-toast";
 
 toast.configure({
   autoClose: 8000,
@@ -32,6 +35,19 @@ function App() {
     border-color: red;
     margin-top: 40vh;
   `;
+
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      console.log("Notification permission granted.");
+      firebase.getPushToken();
+    } else {
+      console.log("Unable to get permission to notify.");
+    }
+  });
+
+  app.messaging().onTokenRefresh(() => {
+    firebase.getPushToken();
+  });
 
   function getDataOnlineUsers() {
     // Para obtener información de todos los usuarios online
