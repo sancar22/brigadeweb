@@ -27,7 +27,7 @@ toast.configure({
 });
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
-
+  let audio = new Audio("../../assets/realalarm.mp3");
   const dispatch = useDispatch();
   const override = css`
     display: block;
@@ -73,6 +73,10 @@ function App() {
       });
   }
 
+  const startAudio = () => {
+    audio.play();
+  };
+
   useEffect(() => {
     // Se va a ejecutar una vez
     firebase.isInitialized().then(val => {
@@ -81,6 +85,21 @@ function App() {
     firebase.resetSelected(); // Para al refrescar la página deseleccionar todos los marcadores
     getDataOnlineUsers();
     getDataAllUsers();
+    app.messaging().onMessage(payload => {
+      // Mensajes del celular a la web
+      const { body } = payload.data;
+      const image =
+        body.search("extintor") !== -1
+          ? require("../../assets/extintor.png")
+          : require("../../assets/camilla.png");
+      startAudio();
+      toast.warn(<CustomToast title={body} image={image} />, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+        onClose: () => console.log("closed")
+      });
+    });
+    return () => {};
   }, []);
 
   return firebaseInitialized !== false ? (

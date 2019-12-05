@@ -50,11 +50,8 @@ class Firebase {
       .catch(err => {
         console.log("Error receiving token");
       });
-
-    app.messaging().onMessage(payload => {
-      toast(<CustomToast title={payload.data.body} />);
-    });
   }
+
   login(email, password) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
