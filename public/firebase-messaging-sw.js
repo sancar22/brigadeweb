@@ -14,7 +14,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
     icon: `/${payload.data.objeto}.png`,
     click_action: "http://localhost:3000/home",
     requireInteraction: true,
-    actions: [{ action: "go", title: "Asistirlo" }]
+    actions: [{ action: "go", title: "Asistirlo 👍" }]
   };
 
   return self.registration.showNotification(

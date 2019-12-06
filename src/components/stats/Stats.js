@@ -1,6 +1,6 @@
 import "./Stats.css";
 import React, { useState, useEffect } from "react";
-import { selectMarker } from "../../actions/index";
+
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import app from "firebase/app";
@@ -10,6 +10,7 @@ import Navigation from "../navigation/Navigation";
 
 function Stats(props) {
   const allBrigadistas = useSelector(state => state.brigada.allBrigades);
+
   let orderedArray = allBrigadistas;
   const compare = (a, b) => {
     const elementA = a.acceptRatio;
@@ -25,7 +26,6 @@ function Stats(props) {
   };
   orderedArray.sort(compare);
 
-  console.log(orderedArray);
   let displayStats = orderedArray.map((item, index) => {
     return (
       <tr key={index}>
@@ -39,7 +39,6 @@ function Stats(props) {
       </tr>
     );
   });
-  const dispatch = useDispatch();
 
   app.auth().onAuthStateChanged(user => {
     // Para llevarlo a login window si no está conectado

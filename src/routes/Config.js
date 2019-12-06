@@ -52,6 +52,23 @@ class Firebase {
       });
   }
 
+  foregroundNotificationList() {
+    app.messaging().onMessage(payload => {
+      // Mensajes del celular a la web
+      const { body } = payload.data;
+      const src =
+        "https://firebasestorage.googleapis.com/v0/b/brigadaun.appspot.com/o/audios%2Falarm.wav?alt=media&token=a2c80767-bae0-47b8-8dae-3b1a7af590df";
+      const image =
+        body.search("extintor") !== -1
+          ? require("../assets/extintor.png")
+          : require("../assets/camilla.png");
+      toast.warn(<CustomToast title={body} image={image} audioSrc={src} />, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false
+      });
+    });
+  }
+
   login(email, password) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }

@@ -19,15 +19,14 @@ import { css } from "@emotion/core";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { messaging } from "../../init-fcm";
-import CustomToast from "../custom-toast";
 
 toast.configure({
   autoClose: 8000,
   draggable: false
 });
+
 function App() {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);
-  let audio = new Audio("../../assets/realalarm.mp3");
   const dispatch = useDispatch();
   const override = css`
     display: block;
@@ -36,18 +35,22 @@ function App() {
     margin-top: 40vh;
   `;
 
-  Notification.requestPermission().then(permission => {
-    if (permission === "granted") {
-      console.log("Notification permission granted.");
-      firebase.getPushToken();
-    } else {
-      console.log("Unable to get permission to notify.");
-    }
-  });
+  const permissionRequest = () => {
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        console.log("Notification permission granted.");
+        firebase.getPushToken();
+      } else {
+        console.log("Unable to get permission to notify.");
+      }
+    });
+  };
 
-  app.messaging().onTokenRefresh(() => {
-    firebase.getPushToken();
-  });
+  const refreshListener = () => {
+    app.messaging().onTokenRefresh(() => {
+      firebase.getPushToken();
+    });
+  };
 
   function getDataOnlineUsers() {
     // Para obtener información de todos los usuarios online
@@ -73,10 +76,6 @@ function App() {
       });
   }
 
-  const startAudio = () => {
-    audio.play();
-  };
-
   useEffect(() => {
     // Se va a ejecutar una vez
     firebase.isInitialized().then(val => {
@@ -85,21 +84,9 @@ function App() {
     firebase.resetSelected(); // Para al refrescar la página deseleccionar todos los marcadores
     getDataOnlineUsers();
     getDataAllUsers();
-    app.messaging().onMessage(payload => {
-      // Mensajes del celular a la web
-      const { body } = payload.data;
-      const image =
-        body.search("extintor") !== -1
-          ? require("../../assets/extintor.png")
-          : require("../../assets/camilla.png");
-      startAudio();
-      toast.warn(<CustomToast title={body} image={image} />, {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: false,
-        onClose: () => console.log("closed")
-      });
-    });
-    return () => {};
+    permissionRequest();
+    refreshListener();
+    firebase.foregroundNotificationList();
   }, []);
 
   return firebaseInitialized !== false ? (
