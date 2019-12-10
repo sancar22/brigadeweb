@@ -27,11 +27,10 @@
 .bod {
   position: relative;
   background-color: rgb(255, 255, 255);
-  box-shadow: -10px 15px 30px black;
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 30%;
+  width: 100%;
 }
 .texto {
   position: relative;
@@ -50,6 +49,7 @@
   border-radius: 10px;
   transition: 0.5s;
   top: 15vh;
+  font-weight: bold;
 }
 
 .but:hover {
@@ -101,20 +101,46 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  height: 6vh;
   width: 100%;
   margin-top: 0vh;
   top: 5vh;
 }
 
+.allCaseContainer {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  box-shadow: -10px 15px 30px black;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 30%;
+  overflow: auto;
+}
+.optionsCase {
+  width: 33.33%;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  height: 100%;
+}
+
+.optionsCase:focus {
+  outline: 0;
+}
+.optionsCase:active {
+  outline: 0;
+}
+.caseNav {
+  display: flex;
+}
+
 @media (max-width: 909px) {
-  .bod {
+  .allCaseContainer {
     width: 40%;
   }
 }
 
 @media (max-width: 650px) {
-  .bod {
+  .allCaseContainer {
     width: 80%;
   }
 }
