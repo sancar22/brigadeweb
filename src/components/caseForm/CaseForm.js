@@ -71,19 +71,14 @@ function CaseForm() {
 
   function sendCase() {
     //Botón para enviar notificaciones
-    firebase.updateCaseBranch(brigadistas.selectedBrigade, fillCase);
+
+    firebase.pushNotification(brigadistas.selectedBrigade, fillCase);
     dispatch(fillPlace(null));
     dispatch(fillCode(null));
     dispatch(fillCategory(null));
     dispatch(fillDescription(""));
-    setTimeout(() => notifExpired(), 10000);
-    firebase.pushNotification(brigadistas.selectedBrigade);
-    firebase.resetSelected();
-  }
 
-  function notifExpired() {
-    firebase.notifExpired(brigadistas.selectedBrigade);
-    firebase.updateRejectedCases(brigadistas.selectedBrigade);
+    firebase.resetSelected();
   }
 
   return (

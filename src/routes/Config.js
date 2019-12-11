@@ -121,6 +121,26 @@ class Firebase {
           let data3 = snapshot.val().Email.split(".")[0];
           let data4 = data1 - data2;
           let data5 = data2 / data1;
+
+          let ocupado = snapshot.val().ocupado;
+          if (ocupado) {
+            toast(
+              <CustomToast
+                title={`¡El brigadista ${brigade.nombre +
+                  " " +
+                  brigade.apellido} aceptó el caso!`}
+              />
+            );
+          } else {
+            toast(
+              <CustomToast
+                title={`¡El brigadista ${brigade.nombre +
+                  " " +
+                  brigade.apellido} rechazó el caso!`}
+              />
+            );
+          }
+
           app
             .database()
             .ref("/Users/" + data3)
@@ -169,20 +189,52 @@ class Firebase {
     );
   }
 
-  pushNotification(dataB) {
+  updateExpired(dataB) {
+    dataB.forEach(info => {
+      app
+        .database()
+        .ref("Users/" + info.Email.split(".")[0])
+        .update({ expired: true });
+    });
+  }
+
+  updatePreExpired(dataB) {
+    dataB.forEach(info => {
+      app
+        .database()
+        .ref("Users/" + info.Email.split(".")[0])
+        .update({ expired: false });
+    });
+  }
+
+  pushNotification(dataB, fillCase) {
     const PUSH_ENDPOINT = "https://exp.host/--/api/v2/push/send";
+    console.log(fillCase);
     let data = {
       to: dataB.map(brigada => brigada.Expotoken),
-      title: "He",
-      body: "---",
+      title: `Código ${fillCase.codigo.label}, Categoría: ${fillCase.categoria.label}`,
+      body: `¡Diríjase de inmediato al ${fillCase.lugarEmergencia.label}!`,
       sound: "default",
       ttl: 5, //MODIFICAR DESPUÉS
       data: {
-        name: "Mañe",
-        ape: "Towers"
+        name: "---",
+        ape: "---"
       },
       priority: "high"
     };
+    let checker = false;
+    this.updatePreExpired(dataB);
+    let timeToReach = setTimeout(() => {
+      checker = true;
+      this.updateExpired(dataB);
+      toast(
+        <CustomToast
+          title={`¡La notificación del brigadista ${dataB[0].nombre +
+            " " +
+            dataB[0].apellido}  expiró! ¡Caso no creado!`}
+        />
+      );
+    }, 40000);
     fetch(PUSH_ENDPOINT, {
       mode: "no-cors",
       method: "POST",
@@ -191,7 +243,28 @@ class Firebase {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
-    }).catch(err => alert(err));
+    })
+      .then(() => {
+        if (!checker) {
+          clearTimeout(timeToReach);
+          this.updateCaseBranch(dataB, fillCase);
+          toast(
+            <CustomToast
+              title={`¡La notificación llegó al celular de ${dataB[0].nombre +
+                " " +
+                dataB[0].apellido}! ¡Caso creado!`}
+            />
+          );
+          setTimeout(() => {
+            this.updateRejectedCases(dataB);
+            this.notifExpired(dataB);
+          }, 10000);
+        } else {
+          this.notifExpired(dataB);
+          console.log("Notificación expiró");
+        }
+      })
+      .catch(err => alert(err));
   }
 
   fillDB(firstN, lastN, lastN2, email) {
