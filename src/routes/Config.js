@@ -264,7 +264,15 @@ class Firebase {
           console.log("Notificación expiró");
         }
       })
-      .catch(err => alert(err));
+      .catch(err =>
+        toast(
+          <CustomToast
+            title={`¡No se pudo enviar la notificación de ${dataB[0].nombre +
+              " " +
+              dataB[0].apellido}!`}
+          />
+        )
+      );
   }
 
   fillDB(firstN, lastN, lastN2, email) {
@@ -284,6 +292,7 @@ class Firebase {
         selected: false,
         notif: false,
         ocupado: false,
+        expired: false,
         Longitud: -74.851163,
         acceptRatio: 0
       });
