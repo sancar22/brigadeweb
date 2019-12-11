@@ -35,23 +35,6 @@ function App() {
     margin-top: 40vh;
   `;
 
-  const permissionRequest = () => {
-    Notification.requestPermission().then(permission => {
-      if (permission === "granted") {
-        console.log("Notification permission granted.");
-        firebase.getPushToken();
-      } else {
-        console.log("Unable to get permission to notify.");
-      }
-    });
-  };
-
-  const refreshListener = () => {
-    app.messaging().onTokenRefresh(() => {
-      firebase.getPushToken();
-    });
-  };
-
   function getDataOnlineUsers() {
     // Para obtener información de todos los usuarios online
     return app
@@ -84,9 +67,6 @@ function App() {
     firebase.resetSelected(); // Para al refrescar la página deseleccionar todos los marcadores
     getDataOnlineUsers();
     getDataAllUsers();
-    permissionRequest();
-    refreshListener();
-    firebase.foregroundNotificationList();
   }, []);
 
   return firebaseInitialized !== false ? (

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import VirtualizedSelect from "react-virtualized-select";
 import "react-select/dist/react-select.css";
@@ -21,7 +20,7 @@ const CaseFormC = ({
   optionsCategory,
   fillCase,
   filterOptions1,
-  sendCase,
+  checkFunctionCase,
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -95,8 +94,18 @@ const CaseFormC = ({
           value={fillCase.descAdicional}
           onChange={event => dispatch(fillDescription(event.target.value))}
         />
-        <button className="but" onClick={sendCase}>
-          Enviar Alerta
+        <button
+          className="but"
+          onClick={() =>
+            checkFunctionCase(
+              fillCase.lugarEmergencia,
+              fillCase.codigo,
+              fillCase.categoria,
+              fillCase.descAdicional
+            )
+          }
+        >
+          Enviar Caso
         </button>
       </div>
     </React.Fragment>

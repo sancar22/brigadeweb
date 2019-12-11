@@ -41,7 +41,7 @@ class Firebase {
           console.log(currentToken);
           app
             .database()
-            .ref("/Users/santiagoyacaman@uninorte")
+            .ref("/Users/admin@gmail")
             .update({ pushToken: currentToken });
         } else {
           console.log("Request permissions to generate a new one");
