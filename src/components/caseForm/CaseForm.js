@@ -16,7 +16,7 @@ import HotActiveCase from "./HotActiveCase";
 import CustomToast from "../custom-toast";
 import "./CaseForm.css";
 import { toast } from "react-toastify";
-import { Minimatch } from "minimatch";
+import ActiveCaseBlock from "./ActiveCaseBlock";
 
 function CaseForm() {
     const brigadistas = useSelector(state => state.brigada);
@@ -51,61 +51,12 @@ function CaseForm() {
         const objeto = "Camilla";
         firebase.miniPushNotification(caso.Expotoken, objeto);
     };
-    const activeCases = brigadistas.activeCases.map((caso, index) => (
-        <div className="activeCaseLoop">
-            <div style={{ textAlign: "center" }}>{caso.inicioFecha}</div>
-            <div className="rowCase">
-                <div>{caso.nombre + " " + caso.apellido}</div>
-                <div>{caso.lugar}</div>
-            </div>
-            <div className="rowCase">
-                <div>Código: {caso.codigo}</div>
-                <div>Categoría: {caso.categoria}</div>
-            </div>
-            <br />
-            <div className="requests">
-                <div style={{ textAlign: "center" }}>Apoyos solicitados</div>
-                <div className="requestsContainer">
-                    <div className="objects">
-                        <div style={{ width: "100%", textAlign: "center" }}>
-                            Objetos
-                        </div>
-                        {caso.camilla && (
-                            <button
-                                onClick={() => handleButtonClickCam(caso)}
-                                style={{
-                                    backgroundColor:
-                                        caso.camillaCheck && "green",
-                                }}
-                                className="buttonObj"
-                            >
-                                Camilla
-                            </button>
-                        )}
-                        {caso.extintor && (
-                            <button
-                                onClick={() => handleButtonClickExt(caso)}
-                                style={{
-                                    backgroundColor:
-                                        caso.extintorCheck && "green",
-                                }}
-                                className="buttonObj"
-                            >
-                                Extintor
-                            </button>
-                        )}
-                        {caso.apoyo && (
-                            <button className="buttonObj">Apoyo</button>
-                        )}
-                    </div>
-                    <div className="listApoyo">
-                        <div style={{ width: "100%", textAlign: "center" }}>
-                            Brigadistas
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    const activeCases = brigadistas.activeCases.map(caso => (
+        <ActiveCaseBlock
+            caso={caso}
+            handleButtonClickCam={handleButtonClickCam}
+            handleButtonClickExt={handleButtonClickExt}
+        />
     ));
 
     const filterOptions1 = createFilterOptions({ options });

@@ -18,6 +18,7 @@
     border-color: #b8b8b8;
     background: rgb(216, 216, 221);
     font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
 }
 .dropdown {
     position: relative;
@@ -36,6 +37,7 @@
     position: relative;
     padding-left: 2vw;
     font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
 }
 .but {
     position: relative;
@@ -70,15 +72,18 @@
     overflow-y: scroll;
     background: #ececec;
     top: 9vh;
+    font-weight: bold;
 }
 ::placeholder {
     color: black;
     font-family: "Courier New", Courier, monospace;
     opacity: 0.5;
+    font-weight: bold;
 }
 
 .texti {
     font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
 }
 
 .div1 {
@@ -120,7 +125,7 @@
     width: 33.33%;
     font-family: "Courier New", Courier, monospace;
     font-weight: bold;
-    height: 100%;
+    height: 6vh;
 }
 
 .optionsCase:focus {
@@ -139,7 +144,7 @@
     display: flex;
     flex-direction: column;
     list-style: none;
-    overflow-y: scroll;
+    overflow: auto;
     flex-wrap: wrap;
 }
 .activeCaseLoop {
@@ -147,6 +152,7 @@
     display: flex;
     flex-direction: column;
     border-bottom: 3px solid black;
+    background: rgb(216, 216, 221);
 }
 
 .rowCase {
@@ -183,6 +189,7 @@
 .buttonObj {
     border-radius: 30px;
     background-color: red;
+    font-weight: bold;
 }
 .buttonObj:focus {
     outline: 0;
