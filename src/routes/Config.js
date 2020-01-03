@@ -59,7 +59,15 @@ class Firebase {
             const image =
                 body.search("extintor") !== -1
                     ? require("../assets/extintor.png")
-                    : require("../assets/camilla.png");
+                    : body.search("camilla") !== -1
+                    ? require("../assets/camilla.png")
+                    : body.search("ambulancia") !== -1
+                    ? require("../assets/ambulancia.png")
+                    : body.search("bombero") !== -1
+                    ? require("../assets/bombero.png")
+                    : body.search("apoyo") !== -1
+                    ? require("../assets/apoyo.png")
+                    : require("../assets/policia.png");
             toast.warn(
                 <CustomToast title={body} image={image} audioSrc={src} />,
                 {
@@ -187,6 +195,12 @@ class Firebase {
                     extintor: false,
                     apoyo: false,
                     camilla: false,
+                    policia: false,
+                    bombero: false,
+                    ambulancia: false,
+                    ambulanciaCheck: false,
+                    policiaCheck: false,
+                    bomberoCheck: false,
                     camillaCheck: false,
                     apoyoCheck: false,
                     extintorCheck: false,
@@ -211,6 +225,26 @@ class Firebase {
         app.database()
             .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
             .update({ camillaCheck: true });
+    }
+    changeSeenPol(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ policiaCheck: true });
+    }
+    changeSeenAmb(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ ambulanciaCheck: true });
+    }
+    changeSeenBom(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ bomberoCheck: true });
+    }
+    changeSeenApoyo(caso) {
+        app.database()
+            .ref("Casos/" + caso.Email + caso.receivedNotif.toString())
+            .update({ apoyoCheck: true });
     }
 
     handleRedB(caso) {

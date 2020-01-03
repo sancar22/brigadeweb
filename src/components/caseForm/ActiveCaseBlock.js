@@ -4,6 +4,10 @@ import "./CaseForm.css";
 function ActiveCaseBlock({
     handleButtonClickCam,
     handleButtonClickExt,
+    handleButtonClickPol,
+    handleButtonClickAmb,
+    handleButtonClickApoyo,
+    handleButtonClickBom,
     handleRedButton,
     caso,
     ...props
@@ -81,6 +85,79 @@ function ActiveCaseBlock({
                                 )}
                             </button>
                         )}
+                        {caso.bombero && (
+                            <button
+                                id="bombero"
+                                onClick={() => handleButtonClickBom(caso)}
+                                disabled={caso.bomberoCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.bomberoCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.bomberoCheck ? (
+                                    <strike className="texti">Bombero</strike>
+                                ) : (
+                                    <div className="texti">Bombero</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.policia && (
+                            <button
+                                id="policia"
+                                onClick={() => handleButtonClickPol(caso)}
+                                disabled={caso.policiaCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.policiaCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.policiaCheck ? (
+                                    <strike className="texti">Policía</strike>
+                                ) : (
+                                    <div className="texti">Policía</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.apoyo && (
+                            <button
+                                id="apoyo"
+                                onClick={() => handleButtonClickApoyo(caso)}
+                                disabled={caso.apoyoCheck && true}
+                                style={{
+                                    backgroundColor: caso.apoyoCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.apoyoCheck ? (
+                                    <strike className="texti">Apoyo</strike>
+                                ) : (
+                                    <div className="texti">Apoyo</div>
+                                )}
+                            </button>
+                        )}
+                        {caso.ambulancia && (
+                            <button
+                                id="ambulancia"
+                                onClick={() => handleButtonClickAmb(caso)}
+                                disabled={caso.ambulanciaCheck && true}
+                                style={{
+                                    backgroundColor:
+                                        caso.ambulanciaCheck && "green"
+                                }}
+                                className="buttonObj"
+                            >
+                                {caso.ambulanciaCheck ? (
+                                    <strike className="texti">
+                                        Ambulancia
+                                    </strike>
+                                ) : (
+                                    <div className="texti">Ambulancia</div>
+                                )}
+                            </button>
+                        )}
                         {caso.extintor && (
                             <button
                                 id="extintor"
@@ -98,9 +175,6 @@ function ActiveCaseBlock({
                                     <div className="texti">Extintor</div>
                                 )}
                             </button>
-                        )}
-                        {caso.apoyo && (
-                            <button className="buttonObj">Apoyo</button>
                         )}
                     </div>
                     <div className="listApoyo">

@@ -43,14 +43,17 @@ function HomePage(props) {
 
     useEffect(() => {
         // Responsiveness
+
         window.addEventListener("resize", () => {
             setWindowWidth(document.body.clientWidth);
         });
         window.addEventListener("resize", () => {
             setWindowHeight(window.innerHeight);
         });
+
         if (app.auth().currentUser) {
             if (app.auth().currentUser.email === "admin@gmail.com") {
+                console.log("Heyo");
                 permissionRequest();
                 refreshListener();
                 firebase.foregroundNotificationList();
