@@ -204,6 +204,7 @@ class Firebase {
                     camillaCheck: false,
                     apoyoCheck: false,
                     extintorCheck: false,
+                    descBrigadista: "",
                     tTranscurrido: 0,
                     closed: true,
                     image1: "image1",
