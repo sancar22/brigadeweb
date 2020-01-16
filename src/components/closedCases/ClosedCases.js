@@ -6,11 +6,17 @@ import "firebase/auth";
 import "firebase/firebase-database";
 import "./ClosedCases.css";
 import ClipLoader from "react-spinners/ClipLoader";
+import SideDrawer from "../sideDrawer/SideDrawer";
+import Backdrop from "../backdrop/Backdrop";
 import { css } from "@emotion/core";
 function ClosedCases(props) {
   const allCases = useSelector(state => state.casos);
   const counter = useRef(0);
   const [loading, setLoading] = useState(true);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+  const drawerToggleClickHandler = () => {
+    setSideDrawerOpen(!sideDrawerOpen);
+  };
   const override = loading
     ? css`
         display: block;
@@ -38,7 +44,9 @@ function ClosedCases(props) {
   };
   return (
     <div style={{ overflow: "hidden", height: "100vh", width: "100vw" }}>
-      <Navigation />
+      <Navigation sideFunction={drawerToggleClickHandler} />
+      {sideDrawerOpen && <Backdrop click={drawerToggleClickHandler} />}
+      <SideDrawer shown={sideDrawerOpen} click={drawerToggleClickHandler} />
       <ClipLoader
         css={override}
         sizeUnit={"px"}
