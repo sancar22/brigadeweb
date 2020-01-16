@@ -15,10 +15,6 @@ section {
   background-position: center center;
 }
 
-.navBox {
-  display: flex;
-}
-
 header {
   padding: 0 5vw;
   margin: 0px;
@@ -65,7 +61,7 @@ ul li a:hover {
   width: 3.5vw;
 
   padding: 3vh 0vw;
-  margin-left: 30vw;
+  margin-left: 87vw;
   display: block;
   flex-direction: row;
   -webkit-transition: all 0.5s ease-out;
