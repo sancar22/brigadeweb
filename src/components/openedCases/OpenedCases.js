@@ -7,10 +7,12 @@ import "firebase/firebase-database";
 import "./OpenedCases.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
+import Timer from "../timer/Timer";
 function OpenedCases(props) {
   const allCases = useSelector(state => state.casos);
   const counter = useRef(0);
   const [loading, setLoading] = useState(true);
+
   const override = loading
     ? css`
         display: block;
@@ -27,8 +29,8 @@ function OpenedCases(props) {
       props.history.push("/");
     }
   });
+
   const photoLoader = () => {
-    console.log("Hello");
     counter.current += 1;
     if (
       counter.current >=
@@ -64,6 +66,7 @@ function OpenedCases(props) {
             <th>Otros Brigadistas</th>
             <th>Proceder</th>
             <th>Fotos</th>
+            <th>Tiempo</th>
           </tr>
           {allCases.length > 0 &&
             allCases
@@ -142,6 +145,11 @@ function OpenedCases(props) {
                           style={{ padding: "10px" }}
                         />
                       </a>
+                    </td>
+                    <td>
+                      <div className="texti">
+                        <Timer date={item.date} />
+                      </div>
                     </td>
                   </tr>
                 );
