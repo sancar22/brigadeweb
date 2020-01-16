@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firebase-database";
-import "./ClosedCases.css";
+import "./OpenedCases.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import { css } from "@emotion/core";
-function ClosedCases(props) {
+function OpenedCases(props) {
   const allCases = useSelector(state => state.casos);
   const counter = useRef(0);
   const [loading, setLoading] = useState(true);
@@ -28,10 +28,11 @@ function ClosedCases(props) {
     }
   });
   const photoLoader = () => {
+    console.log("Hello");
     counter.current += 1;
     if (
       counter.current >=
-      allCases.filter(data => data.active === false).length * 2
+      allCases.filter(data => data.active === true).length * 2
     ) {
       setLoading(false);
     }
@@ -66,7 +67,7 @@ function ClosedCases(props) {
           </tr>
           {allCases.length > 0 &&
             allCases
-              .filter(data => data.active === false)
+              .filter(data => data.active === true)
               .map((item, index) => {
                 return (
                   <tr key={index}>
@@ -111,7 +112,7 @@ function ClosedCases(props) {
                     <td>
                       <a
                         href={item.image1 !== "image1" && item.image1}
-                        target="none"
+                        target="_blank"
                       >
                         <img
                           onLoad={photoLoader}
@@ -151,4 +152,4 @@ function ClosedCases(props) {
   );
 }
 
-export default ClosedCases;
+export default OpenedCases;
