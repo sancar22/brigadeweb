@@ -1,7 +1,7 @@
 .image {
   border-radius: 50%;
-  width: 7vw;
-  height: 15vh;
+  width: 10vw;
+  height: 100%;
 }
 
 .formDiv {
@@ -35,13 +35,14 @@
   width: 100vw;
   position: relative;
   justify-content: center;
-
+  height: 10vh;
   padding: 2vh;
 }
 
 .textDiv {
   padding: 0 0 0.2vh 0;
-  font-size: 1.2vw;
+  font-size: 0.7em;
+  font-weight: bold;
 }
 
 .inputSignUp {
@@ -50,7 +51,8 @@
   width: 15vw;
 }
 .inputSignUp::placeholder {
-  font-size: 1.2vw;
+  font-size: 0.9em;
+  font-weight: bold;
 }
 
 .inputSignUp:focus {
@@ -63,7 +65,7 @@
 
   margin-top: 5vh;
   height: 5vh;
-  font-size: 1vw;
+  font-size: 0.7em;
   font-weight: bold;
   transition: 0.8s;
 }
@@ -73,4 +75,36 @@
 
 .image:hover {
   cursor: pointer;
+}
+
+@media (max-width: 769px) {
+  .inputSignUp {
+    width: 25vw;
+  }
+  .buttonSignUp {
+    width: 14vw;
+  }
+  .image {
+    width: 20vw;
+    height: 100%;
+  }
+  .divRow {
+    height: 23vh;
+  }
+}
+
+@media (max-width: 500px) {
+  .inputSignUp {
+    width: 40vw;
+  }
+  .buttonSignUp {
+    width: 22vw;
+  }
+  .divRow {
+    height: 23vh;
+  }
+  .image {
+    width: 20vw;
+    height: 100%;
+  }
 }

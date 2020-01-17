@@ -86,4 +86,7 @@ ul li a:hover {
   .extra {
     display: none;
   }
+  .navBox {
+    display: flex;
+  }
 }
