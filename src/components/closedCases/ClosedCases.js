@@ -11,6 +11,7 @@ import Backdrop from "../backdrop/Backdrop";
 import TableC from "../tableC/TableC";
 import { css } from "@emotion/core";
 import FilterC from "../filterC/filterC";
+
 function ClosedCases(props) {
   const allCases = useSelector(state => state.casos);
   const counter = useRef(0);
@@ -22,6 +23,12 @@ function ClosedCases(props) {
   const [showPlace, setShowPlace] = useState(false);
   const [filterCategory, setFilterCategory] = useState("");
   const [showCategory, setShowCategory] = useState(false);
+  const [showDate, setShowDate] = useState(false);
+  const [filterDate, setFilterDate] = useState("");
+  const [lowerDateRange, setLowerDateRange] = useState(0);
+  const [upperDateRange, setUpperDateRange] = useState(0);
+  const [heightHandler, setHeightHandler] = useState(false);
+
   const drawerToggleClickHandler = () => {
     setSideDrawerOpen(!sideDrawerOpen);
   };
@@ -49,11 +56,25 @@ function ClosedCases(props) {
     }
   };
 
+  const handleCalendarHeight = () => {
+    setHeightHandler(true);
+  };
+  const secondHandler = () => {
+    setHeightHandler(false);
+  };
+
+  const dateOutput = date => {
+    console.log(date);
+    setLowerDateRange(new Date(date[0]).getTime());
+    setUpperDateRange(new Date(date[1]).getTime());
+  };
+
   const filterNow = (field, option) => {
     if (option.label === "Nombre") {
       setShowPlace(false);
       setShowCategory(false);
       setShowName(true);
+      setShowDate(false);
       setFilterName(
         allCases
           .filter(
@@ -81,6 +102,7 @@ function ClosedCases(props) {
       setShowPlace(true);
       setShowCategory(false);
       setShowName(false);
+      setShowDate(false);
       setFilterPlace(
         allCases
           .filter(data => data.active === false && data.lugar === field.label)
@@ -102,6 +124,7 @@ function ClosedCases(props) {
       setShowPlace(false); // Acuerda de agregar nuevas cosas y cambiar estados
       setShowCategory(true);
       setShowName(false);
+      setShowDate(false);
       setFilterCategory(
         allCases
           .filter(
@@ -110,6 +133,42 @@ function ClosedCases(props) {
           .map((item, index) => {
             const length = allCases.filter(
               data => data.active === false && data.categoria === field.label
+            ).length;
+            return (
+              <TableC
+                index={index}
+                photoLoader={photoLoader}
+                item={item}
+                length={length}
+              />
+            );
+          })
+      );
+    } else if (option.label === "Fecha") {
+      console.log("Filtered by date");
+      setShowPlace(false);
+      setShowCategory(false);
+      setShowName(false);
+      setShowDate(true);
+      console.log();
+      setFilterDate(
+        allCases
+          .filter(
+            data =>
+              data.active === false &&
+              lowerDateRange <=
+                new Date(data.inicioFecha.split(" ", 1)).getTime() &&
+              upperDateRange >=
+                new Date(data.inicioFecha.split(" ", 1)).getTime()
+          )
+          .map((item, index) => {
+            const length = allCases.filter(
+              data =>
+                data.active === false &&
+                lowerDateRange <=
+                  new Date(data.inicioFecha.split(" ", 1)).getTime() &&
+                upperDateRange >=
+                  new Date(data.inicioFecha.split(" ", 1)).getTime()
             ).length;
             return (
               <TableC
@@ -161,7 +220,14 @@ function ClosedCases(props) {
           display: loading ? "none" : "block"
         }}
       >
-        <FilterC filterNow={filterNow} />
+        <div style={{ width: "100%", height: heightHandler ? "77%" : "20%" }}>
+          <FilterC
+            filterNow={filterNow}
+            dateOutput={dateOutput}
+            handleCalendarHeight={handleCalendarHeight}
+            secondHandler={secondHandler}
+          />
+        </div>
         <table className="tableClosed">
           <tr>
             <th>Brigadista</th>
@@ -178,6 +244,8 @@ function ClosedCases(props) {
             ? filterCategory
             : showPlace === true
             ? filterPlace
+            : showDate === true
+            ? filterDate
             : showArray}
         </table>
       </div>
