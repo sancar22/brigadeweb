@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/brigadeweb/static/css/main.57f32c8c.chunk.css",
-    "main.js": "/brigadeweb/static/js/main.6d1716c4.chunk.js",
-    "main.js.map": "/brigadeweb/static/js/main.6d1716c4.chunk.js.map",
+    "main.js": "/brigadeweb/static/js/main.f4e85e56.chunk.js",
+    "main.js.map": "/brigadeweb/static/js/main.f4e85e56.chunk.js.map",
     "runtime~main.js": "/brigadeweb/static/js/runtime~main.1403454d.js",
     "runtime~main.js.map": "/brigadeweb/static/js/runtime~main.1403454d.js.map",
     "static/css/2.2d42a0e7.chunk.css": "/brigadeweb/static/css/2.2d42a0e7.chunk.css",
     "static/js/2.b4931818.chunk.js": "/brigadeweb/static/js/2.b4931818.chunk.js",
     "static/js/2.b4931818.chunk.js.map": "/brigadeweb/static/js/2.b4931818.chunk.js.map",
     "index.html": "/brigadeweb/index.html",
-    "precache-manifest.3413b8eb57b3f5564600a03099d09914.js": "/brigadeweb/precache-manifest.3413b8eb57b3f5564600a03099d09914.js",
+    "precache-manifest.e88f43be0e5cd3f65fe0070e63344029.js": "/brigadeweb/precache-manifest.e88f43be0e5cd3f65fe0070e63344029.js",
     "service-worker.js": "/brigadeweb/service-worker.js",
     "static/css/2.2d42a0e7.chunk.css.map": "/brigadeweb/static/css/2.2d42a0e7.chunk.css.map",
     "static/css/main.57f32c8c.chunk.css.map": "/brigadeweb/static/css/main.57f32c8c.chunk.css.map",
