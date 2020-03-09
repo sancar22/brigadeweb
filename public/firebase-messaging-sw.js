@@ -2,7 +2,7 @@ importScripts("https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/5.9.4/firebase-messaging.js");
 
 firebase.initializeApp({
-    messagingSenderId: "1062407524656",
+    messagingSenderId: "1062407524656"
 });
 
 const messaging = firebase.messaging();
@@ -14,7 +14,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
         icon: `/${payload.data.objeto}.png`,
         click_action: "http://localhost:3000/home",
         requireInteraction: true,
-        actions: [{ action: "go", title: "Asistirlo 👍" }],
+        actions: [{ action: "go", title: "Asistirlo 👍" }]
     };
 
     return self.registration.showNotification(
@@ -26,7 +26,7 @@ self.addEventListener("notificationclick", function(event) {
     event.waitUntil(
         (async function() {
             const allClients = await clients.matchAll({
-                includeUncontrolled: true,
+                includeUncontrolled: true
             });
             let chatClient;
             let appUrl = "http://localhost:3000/";

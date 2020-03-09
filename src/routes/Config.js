@@ -492,7 +492,7 @@ class Firebase {
             );
     }
 
-    fillDB(firstN, lastN, lastN2, email, celular) {
+    fillDB(firstN, lastN, lastN2, email, celular, role) {
         app.database()
             .ref("Users/" + email.split(".")[0])
             .update({
@@ -512,6 +512,7 @@ class Firebase {
                 help: false,
                 helpOcupado: false,
                 trulyHelped: false,
+                role: role,
                 requestedHelp: 0,
                 helpdidnt: 0,
                 helpdid: 0,

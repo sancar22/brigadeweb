@@ -10,10 +10,18 @@ import FormInputE from "../form/FormE";
 import { toast } from "react-toastify";
 import SideDrawer from "../sideDrawer/SideDrawer";
 import Backdrop from "../backdrop/Backdrop";
+import VirtualizedSelect from "react-virtualized-select";
+import "react-select/dist/react-select.css";
+import "react-virtualized/styles.css";
+import "react-virtualized-select/styles.css";
+import { roleOptions } from "./Options";
+import { changeRole } from "../../actions/index";
+import { useSelector, useDispatch } from "react-redux";
 
 import CustomToast from "../custom-toast";
 
 function SignUp(props) {
+    const brigadistas = useSelector(state => state.brigada);
     const [fileB, setFileB] = useState(null);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -22,6 +30,7 @@ function SignUp(props) {
     const [password, setPassword] = useState("");
     const [confPass, setConfPass] = useState("");
     const [cellPhone, setCellPhone] = useState("");
+    const [role, setRole] = useState(null);
     const [fileFB, setFileFB] = useState(null);
     const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
     const drawerToggleClickHandler = () => {
@@ -32,7 +41,11 @@ function SignUp(props) {
     const [windowHeight, setWindowHeight] = useState(null);
 
     app.auth().onAuthStateChanged(user => {
-        if (!user) {
+        if (
+            !user ||
+            brigadistas.currentBrigadeRole === "Brigadista" ||
+            brigadistas.currentBrigadeRole === ""
+        ) {
             props.history.push("/");
         }
     });
@@ -97,6 +110,9 @@ function SignUp(props) {
                     <CustomToast title="Digite un número de celular válido" />
                 );
                 return;
+            } else if (role === null) {
+                toast(<CustomToast title="Asigne un rol al usuario" />);
+                return;
             }
 
             app.auth()
@@ -107,7 +123,8 @@ function SignUp(props) {
                         lastName,
                         secondLast,
                         email,
-                        cellPhone
+                        cellPhone,
+                        role.label
                     );
                     firebase.uploadImage(fileFB, email);
                     firebase.resetPassword(email);
@@ -119,6 +136,7 @@ function SignUp(props) {
                     setPassword("");
                     setConfPass("");
                     setCellPhone("");
+                    setRole("");
                     toast(<CustomToast title="¡Registro exitoso!" />);
                 })
                 .catch(error =>
@@ -166,20 +184,6 @@ function SignUp(props) {
                     }}
                     style={{ display: "none" }}
                 />
-                <div className="twoContainer" style={{ paddingBottom: 0 }}>
-                    <div className="inputCol">
-                        <div className="textDiv">Celular:</div>
-                        <FormInput
-                            name="Cell Phone"
-                            type="text"
-                            placeholder="Celular"
-                            className="inputSignUp"
-                            value={cellPhone}
-                            required
-                            onChange={evt => cellPhonePut(evt)}
-                        />
-                    </div>
-                </div>
 
                 <div className="twoContainer">
                     <div className="inputCol">
@@ -208,7 +212,6 @@ function SignUp(props) {
                         />
                     </div>
                 </div>
-
                 <div className="twoContainer">
                     <div className="inputCol">
                         <div className="textDiv">Segundo Apellido:</div>
@@ -236,7 +239,33 @@ function SignUp(props) {
                         />
                     </div>
                 </div>
+                <div className="twoContainer">
+                    <div className="inputCol">
+                        <div className="textDiv">Celular:</div>
+                        <FormInput
+                            name="Cell Phone"
+                            type="text"
+                            placeholder="Celular"
+                            className="inputSignUp"
+                            value={cellPhone}
+                            required
+                            onChange={evt => cellPhonePut(evt)}
+                        />
+                    </div>
 
+                    <div className="inputCol">
+                        <div className="textDiv" style={{ width: "15vw" }}>
+                            Rol:
+                        </div>
+
+                        <VirtualizedSelect
+                            name="role"
+                            value={role}
+                            options={roleOptions}
+                            onChange={val => setRole(val)}
+                        />
+                    </div>
+                </div>
                 <div className="twoContainer">
                     <div className="inputCol">
                         <div className="textDiv">Contraseña:</div>

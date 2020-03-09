@@ -19,6 +19,7 @@ import { messaging } from "../../init-fcm";
 function HomePage(props) {
     const brigadistas = useSelector(state => state.brigada);
     const dispatch = useDispatch();
+    const [currUser, setCurrUser] = useState("");
     const [windowWidth, setWindowWidth] = useState(null); //responsiveness
     const [windowHeight, setWindowHeight] = useState(null);
     const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
@@ -48,7 +49,11 @@ function HomePage(props) {
 
     useEffect(() => {
         // Responsiveness
-
+        app.database()
+            .ref("Users/" + app.auth().currentUser.email.split(".")[0])
+            .on("value", snapshot => {
+                setCurrUser(snapshot.val().role);
+            });
         window.addEventListener("resize", () => {
             setWindowWidth(document.body.clientWidth);
         });
@@ -76,7 +81,8 @@ function HomePage(props) {
 
     app.auth().onAuthStateChanged(user => {
         // Para llevarlo a login window si no está conectado
-        if (!user) {
+
+        if (!user || currUser === "Brigadista") {
             props.history.push("/");
         }
     });

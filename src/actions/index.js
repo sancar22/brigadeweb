@@ -12,6 +12,13 @@ export const selectOnlineGuards = info => {
     };
 };
 
+export const changeRole = info => {
+    return {
+        type: "CHANGE_ROLE",
+        payload: info
+    };
+};
+
 export const helpBrigade = info => {
     return {
         type: "BRIGADE_HELPED",

@@ -4,6 +4,7 @@ const initState = {
     tempArray: [],
     buttonClick: null,
     allBrigades: [],
+    currentBrigadeRole: "",
     activeCases: []
 };
 
@@ -42,6 +43,8 @@ const brigadaReducer = (state = initState, action) => {
             return { ...state, tempArray: action.payload };
         case "NOTIF_PRESSED":
             return { ...state, buttonClick: action.payload };
+        case "CHANGE_ROLE":
+            return { ...state, currentBrigadeRole: action.payload };
         default:
             return state;
     }

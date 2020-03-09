@@ -9,6 +9,14 @@
             name="description"
             content="Aplicación para la brigada de la Universidad del Norte"
         />
+        <script>
+            if (
+                !window.location.port &&
+                typeof window._REACT_DEVTOOLS_GLOBAL_HOOK_ === "object"
+            ) {
+                window._REACT_DEVTOOLS_GLOBAL_HOOK_.inject = function() {};
+            }
+        </script>
 
         <!--
       manifest.json provides metadata used when your web app is installed on a

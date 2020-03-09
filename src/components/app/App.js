@@ -100,7 +100,7 @@ function App() {
     }, []);
 
     return firebaseInitialized !== false ? (
-        <Router basename={"/brigadeweb"}>
+        <Router>
             <div>
                 <Switch>
                     <Route exact path={ROUTES.SIGN_UP} component={SignUp} />

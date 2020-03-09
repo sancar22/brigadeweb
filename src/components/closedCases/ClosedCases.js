@@ -13,6 +13,7 @@ import { css } from "@emotion/core";
 import FilterC from "../filterC/filterC";
 
 function ClosedCases(props) {
+    const brigadistas = useSelector(state => state.brigada);
     const allCases = useSelector(state => state.casos);
     const counter = useRef(0);
     const [loading, setLoading] = useState(true);
@@ -44,7 +45,11 @@ function ClosedCases(props) {
           `;
     app.auth().onAuthStateChanged(user => {
         // Para llevarlo a login window si no está conectado
-        if (!user) {
+        if (
+            !user ||
+            brigadistas.currentBrigadeRole === "Brigadista" ||
+            brigadistas.currentBrigadeRole === ""
+        ) {
             props.history.push("/");
         }
     });

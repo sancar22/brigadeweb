@@ -32,7 +32,11 @@ function OpenedCases(props) {
           `;
     app.auth().onAuthStateChanged(user => {
         // Para llevarlo a login window si no está conectado
-        if (!user) {
+        if (
+            !user ||
+            brigadistas.currentBrigadeRole === "Brigadista" ||
+            brigadistas.currentBrigadeRole === ""
+        ) {
             props.history.push("/");
         }
     });
