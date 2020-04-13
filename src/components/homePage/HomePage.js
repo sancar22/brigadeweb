@@ -84,6 +84,8 @@ function HomePage(props) {
 
         if (!user || currUser === "Brigadista") {
             props.history.push("/");
+        } else if (brigadistas.currentBrigadeRole === "Espectador") {
+            props.history.push("/stats");
         }
     });
 

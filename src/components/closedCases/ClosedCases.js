@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
 import Navigation from "../navigation/Navigation";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import app from "firebase/app";
 import "firebase/auth";
@@ -15,8 +15,9 @@ import FilterC from "../filterC/filterC";
 function ClosedCases(props) {
     const brigadistas = useSelector(state => state.brigada);
     const allCases = useSelector(state => state.casos);
+    console.log(allCases);
     const counter = useRef(0);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
     const [filterName, setFilterName] = useState("");
     const [showName, setShowName] = useState(false);
@@ -29,6 +30,10 @@ function ClosedCases(props) {
     const [lowerDateRange, setLowerDateRange] = useState(0);
     const [upperDateRange, setUpperDateRange] = useState(0);
     const [heightHandler, setHeightHandler] = useState(false);
+    const [indexShow, setIndexShow] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [field, setField] = useState(null);
+    const [option, setOption] = useState(null);
 
     const drawerToggleClickHandler = () => {
         setSideDrawerOpen(!sideDrawerOpen);
@@ -43,6 +48,7 @@ function ClosedCases(props) {
         : css`
               display: none;
           `;
+    /*
     app.auth().onAuthStateChanged(user => {
         // Para llevarlo a login window si no está conectado
         if (
@@ -53,6 +59,7 @@ function ClosedCases(props) {
             props.history.push("/");
         }
     });
+    */
     const photoLoader = length => {
         counter.current += 1;
 
@@ -74,7 +81,42 @@ function ClosedCases(props) {
         setUpperDateRange(new Date(date[1]).getTime());
     };
 
-    const filterNow = (field, option) => {
+    useEffect(() => {
+        if (filterDate) {
+            filterNow(field, option, true);
+        }
+        if (filterCategory) {
+            filterNow(field, option, true);
+        }
+        if (filterName) {
+            filterNow(field, option, true);
+        }
+        if (filterPlace) {
+            filterNow(field, option, true);
+        }
+    }, [indexShow]);
+    const indexChangerUp = length => {
+        if (currentPage < Math.ceil(length / 10)) {
+            setIndexShow(indexShow + 10);
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const indexChangerDown = () => {
+        if (indexShow >= 10) {
+            setIndexShow(indexShow - 10);
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const filterNow = (field, option, bool) => {
+        setField(field);
+        setOption(option);
+        if (!bool) {
+            setCurrentPage(1);
+            setIndexShow(0);
+        }
+
         if (option.label === "Nombre") {
             setShowPlace(false);
             setShowCategory(false);
@@ -94,14 +136,17 @@ function ClosedCases(props) {
                                 data.nombre + " " + data.apellido ===
                                     field.label
                         ).length;
-                        return (
-                            <TableC
-                                index={index}
-                                photoLoader={photoLoader}
-                                item={item}
-                                length={length}
-                            />
-                        );
+
+                        if (0 + indexShow <= index && index <= indexShow + 10) {
+                            return (
+                                <TableC
+                                    index={index}
+                                    photoLoader={photoLoader}
+                                    item={item}
+                                    length={length}
+                                />
+                            );
+                        }
                     })
             );
         } else if (option.label === "Lugar") {
@@ -121,14 +166,16 @@ function ClosedCases(props) {
                                 data.active === false &&
                                 data.lugar === field.label
                         ).length;
-                        return (
-                            <TableC
-                                index={index}
-                                photoLoader={photoLoader}
-                                item={item}
-                                length={length}
-                            />
-                        );
+                        if (0 + indexShow <= index && index <= indexShow + 10) {
+                            return (
+                                <TableC
+                                    index={index}
+                                    photoLoader={photoLoader}
+                                    item={item}
+                                    length={length}
+                                />
+                            );
+                        }
                     })
             );
         } else if (option.label === "Categoría") {
@@ -149,14 +196,16 @@ function ClosedCases(props) {
                                 data.active === false &&
                                 data.categoria === field.label
                         ).length;
-                        return (
-                            <TableC
-                                index={index}
-                                photoLoader={photoLoader}
-                                item={item}
-                                length={length}
-                            />
-                        );
+                        if (0 + indexShow <= index && index <= indexShow + 10) {
+                            return (
+                                <TableC
+                                    index={index}
+                                    photoLoader={photoLoader}
+                                    item={item}
+                                    length={length}
+                                />
+                            );
+                        }
                     })
             );
         } else if (option.label === "Fecha") {
@@ -193,18 +242,25 @@ function ClosedCases(props) {
                                         data.inicioFecha.split(" ", 1)
                                     ).getTime()
                         ).length;
-                        return (
-                            <TableC
-                                index={index}
-                                photoLoader={photoLoader}
-                                item={item}
-                                length={length}
-                            />
-                        );
+                        if (0 + indexShow <= index && index <= indexShow + 10) {
+                            return (
+                                <TableC
+                                    index={index}
+                                    photoLoader={photoLoader}
+                                    item={item}
+                                    length={length}
+                                />
+                            );
+                        }
                     })
             );
         }
     };
+
+    useEffect(() => {
+        console.log(indexShow);
+        console.log(filterPlace.length);
+    }, [filterPlace]);
 
     let showArray =
         allCases.length > 0 &&
@@ -213,16 +269,18 @@ function ClosedCases(props) {
             .map((item, index) => {
                 const length = allCases.filter(data => data.active === false)
                     .length;
-
-                return (
-                    <TableC
-                        index={index}
-                        photoLoader={photoLoader}
-                        item={item}
-                        length={length}
-                    />
-                );
+                if (0 + indexShow <= index && index <= indexShow + 10) {
+                    return (
+                        <TableC
+                            index={index}
+                            photoLoader={photoLoader}
+                            item={item}
+                            length={length}
+                        />
+                    );
+                }
             });
+
     return (
         <div style={{ overflow: "hidden", height: "100vh", width: "100vw" }}>
             <Navigation sideFunction={drawerToggleClickHandler} />
@@ -271,15 +329,56 @@ function ClosedCases(props) {
                         <th>Fotos</th>
                     </tr>
                     {allCases.length > 0 && showName === true
-                        ? filterName
+                        ? filterName.reverse()
                         : showCategory === true
-                        ? filterCategory
+                        ? filterCategory.reverse()
                         : showPlace === true
-                        ? filterPlace
+                        ? filterPlace.reverse()
                         : showDate === true
-                        ? filterDate
-                        : showArray}
+                        ? filterDate.reverse()
+                        : showArray.length > 0 && showArray.reverse()}
                 </table>
+                <div
+                    style={{
+                        width: "100%",
+                        height: "3vh",
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: "1vh"
+                    }}
+                >
+                    <button onClick={() => indexChangerDown()}>Anterior</button>
+                    <div style={{ marginLeft: "1vw", marginRight: "1vw" }}>
+                        {currentPage} /{" "}
+                        {showName === true
+                            ? Math.ceil(filterName.length / 10)
+                            : showCategory === true
+                            ? Math.ceil(filterCategory.length / 10)
+                            : showPlace === true
+                            ? Math.ceil(filterPlace.length / 10)
+                            : showDate === true
+                            ? Math.ceil(filterDate.length / 10)
+                            : showArray.length > 0 &&
+                              Math.ceil(showArray.length / 10)}
+                    </div>
+                    <button
+                        onClick={() =>
+                            indexChangerUp(
+                                showName === true
+                                    ? filterName.length
+                                    : showCategory === true
+                                    ? filterCategory.length
+                                    : showPlace === true
+                                    ? filterPlace.length
+                                    : showDate === true
+                                    ? filterDate.length
+                                    : showArray.length > 0 && showArray.length
+                            )
+                        }
+                    >
+                        Siguiente
+                    </button>
+                </div>
             </div>
         </div>
     );

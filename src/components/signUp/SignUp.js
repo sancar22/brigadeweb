@@ -47,6 +47,8 @@ function SignUp(props) {
             brigadistas.currentBrigadeRole === ""
         ) {
             props.history.push("/");
+        } else if (brigadistas.currentBrigadeRole === "Espectador") {
+            props.history.push("/stats");
         }
     });
 

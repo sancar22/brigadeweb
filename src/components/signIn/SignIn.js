@@ -49,6 +49,9 @@ function SignIn(props) {
                 .once("value", snapshot => {
                     dispatch(changeRole(snapshot.val().role));
                     if (snapshot.val().role === "Brigadista") {
+                        toast(
+                            <CustomToast title="No se permite acceder como brigadista." />
+                        );
                         setLoading(false);
                     } else {
                         props.history.replace("/home");

@@ -8,47 +8,61 @@ import "./Navigation.css";
 import DrawerToggleButton from "../sideDrawer/DrawerToggleButton";
 
 function Navigation(props) {
-  const logout = () => {
-    firebase.logout();
-    props.history.replace("/"); //Irse a página de login al hacer logout
-  };
+    const logout = () => {
+        firebase.logout();
+        props.history.replace("/"); //Irse a página de login al hacer logout
+    };
 
-  return (
-    <div className="bodyy">
-      <section>
-        <header>
-          <div className="navBox">
-            <DrawerToggleButton click={props.sideFunction} />
-            <ul className="extra">
-              <li>
-                <Link to={ROUTES.HOME}>Home</Link>
-              </li>
+    return (
+        <div className="bodyy">
+            <section>
+                <header>
+                    <div className="navBox">
+                        <DrawerToggleButton click={props.sideFunction} />
+                        <ul className="extra">
+                            <img
+                                src={require("../../assets/logoBrigada.png")}
+                                height="80px"
+                                width="80px"
+                                style={{
+                                    marginLeft: "-80px",
+                                    marginRight: "20vw",
+                                    marginTop: "0px"
+                                }}
+                            />
+                            <li>
+                                <Link to={ROUTES.HOME}>Home</Link>
+                            </li>
 
-              <li>
-                <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-              </li>
-              <li>
-                <Link to={ROUTES.STATS}>Stats</Link>
-              </li>
-              <li>
-                <Link to={ROUTES.CLOSED_CASES}>Closed Cases</Link>
-              </li>
-              <li>
-                <Link to={ROUTES.OPENED_CASES}>Opened Cases</Link>
-              </li>
-            </ul>
+                            <li>
+                                <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+                            </li>
+                            <li>
+                                <Link to={ROUTES.STATS}>Stats</Link>
+                            </li>
+                            <li>
+                                <Link to={ROUTES.CLOSED_CASES}>
+                                    Closed Cases
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={ROUTES.OPENED_CASES}>
+                                    Opened Cases
+                                </Link>
+                            </li>
+                        </ul>
 
-            <input
-              className="logout"
-              type="image"
-              src="logout1.png"
-              alt="logout_icon"
-              onClick={logout}
-            />
-          </div>
-        </header>
-      </section>
-    </div>
-  );
+                        <input
+                            className="logout"
+                            type="image"
+                            src="logout1.png"
+                            alt="logout_icon"
+                            onClick={logout}
+                        />
+                    </div>
+                </header>
+            </section>
+        </div>
+    );
 }
 export default withRouter(Navigation);
