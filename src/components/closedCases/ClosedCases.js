@@ -60,6 +60,14 @@ function ClosedCases(props) {
         }
     });
     */
+    const allCasesOrganized =
+        allCases.length > 0 &&
+        allCases.sort(
+            (a, b) =>
+                new Date(b.inicioFecha).getTime() -
+                new Date(a.inicioFecha).getTime()
+        );
+    console.log(allCasesOrganized);
     const photoLoader = length => {
         counter.current += 1;
 
@@ -329,14 +337,14 @@ function ClosedCases(props) {
                         <th>Fotos</th>
                     </tr>
                     {allCases.length > 0 && showName === true
-                        ? filterName.reverse()
+                        ? filterName
                         : showCategory === true
-                        ? filterCategory.reverse()
+                        ? filterCategory
                         : showPlace === true
-                        ? filterPlace.reverse()
+                        ? filterPlace
                         : showDate === true
-                        ? filterDate.reverse()
-                        : showArray.length > 0 && showArray.reverse()}
+                        ? filterDate
+                        : showArray.length > 0 && showArray}
                 </table>
                 <div
                     style={{
