@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/brigadeweb/static/css/main.a8f59dd9.chunk.css",
+    "main.css": "/brigadeweb/static/css/main.3dcb875d.chunk.css",
     "main.js": "/brigadeweb/static/js/main.23cf63bd.chunk.js",
     "main.js.map": "/brigadeweb/static/js/main.23cf63bd.chunk.js.map",
     "runtime~main.js": "/brigadeweb/static/js/runtime~main.1403454d.js",
@@ -9,10 +9,10 @@
     "static/js/2.69b1206f.chunk.js": "/brigadeweb/static/js/2.69b1206f.chunk.js",
     "static/js/2.69b1206f.chunk.js.map": "/brigadeweb/static/js/2.69b1206f.chunk.js.map",
     "index.html": "/brigadeweb/index.html",
-    "precache-manifest.e3614f51b21e40ef0b1f50a85257cb29.js": "/brigadeweb/precache-manifest.e3614f51b21e40ef0b1f50a85257cb29.js",
+    "precache-manifest.72dca9e8de846b7277d651850010779d.js": "/brigadeweb/precache-manifest.72dca9e8de846b7277d651850010779d.js",
     "service-worker.js": "/brigadeweb/service-worker.js",
     "static/css/2.203dfa21.chunk.css.map": "/brigadeweb/static/css/2.203dfa21.chunk.css.map",
-    "static/css/main.a8f59dd9.chunk.css.map": "/brigadeweb/static/css/main.a8f59dd9.chunk.css.map",
+    "static/css/main.3dcb875d.chunk.css.map": "/brigadeweb/static/css/main.3dcb875d.chunk.css.map",
     "static/media/DefensaCivil.png": "/brigadeweb/static/media/DefensaCivil.81d1c1b9.png",
     "static/media/apoyo.png": "/brigadeweb/static/media/apoyo.0b48a901.png",
     "static/media/bombero.png": "/brigadeweb/static/media/bombero.4cb636cb.png",
