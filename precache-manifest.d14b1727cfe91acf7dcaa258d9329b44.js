@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "dc2cfa9cfc7b0ea817048d636860b90f",
+    "revision": "fbecefb66cc79aab1236b51813c997b9",
     "url": "/brigadeweb/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/brigadeweb/static/css/2.203dfa21.chunk.css"
   },
   {
-    "revision": "4b8a2804e54099949ef3",
+    "revision": "d6957eec362dcf091970",
     "url": "/brigadeweb/static/css/main.3dcb875d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/brigadeweb/static/js/2.69b1206f.chunk.js"
   },
   {
-    "revision": "4b8a2804e54099949ef3",
-    "url": "/brigadeweb/static/js/main.23cf63bd.chunk.js"
+    "revision": "d6957eec362dcf091970",
+    "url": "/brigadeweb/static/js/main.21f157bc.chunk.js"
   },
   {
     "revision": "f9b63b9641a38c9d460f",
